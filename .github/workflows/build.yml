@@ -46,10 +46,15 @@ jobs:
           cache-name: cache-node-modules
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.ref_name }}-${{ hashFiles('**/package-lock.json') }}
+          # キャッシュキーに -v2 を追加して強制的に無効化
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.ref_name }}-${{ hashFiles('**/package-lock.json') }}-**v2**
       - name: Install dependencies
         if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
-        run: npm ci
+        run: |
+          # クリーンアップコマンドを追加 (ネイティブバインディングエラー対策)
+          **rm -rf node_modules
+          rm -f package-lock.json**
+          npm ci
 
       - name: Generate
         run: npm run generate
@@ -104,10 +109,15 @@ jobs:
           cache-name: cache-node-modules
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.ref_name }}-${{ hashFiles('**/package-lock.json') }}
+          # キャッシュキーに -v2 を追加して強制的に無効化
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ github.ref_name }}-${{ hashFiles('**/package-lock.json') }}-**v2**
       - name: Install dependencies
         if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
-        run: npm ci
+        run: |
+          # クリーンアップコマンドを追加 (ネイティブバインディングエラー対策)
+          **rm -rf node_modules
+          rm -f package-lock.json**
+          npm ci
 
       - name: Generate
         run: npm run generate
