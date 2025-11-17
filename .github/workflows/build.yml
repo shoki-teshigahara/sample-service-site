@@ -52,7 +52,7 @@ jobs:
         run: |
           rm -rf node_modules
           rm -f package-lock.json
-          npm ci
+          npm install
 
       - name: Generate
         run: npm run generate
@@ -113,7 +113,7 @@ jobs:
         run: |
           rm -rf node_modules
           rm -f package-lock.json
-          npm ci
+          npm install
 
       - name: Generate
         run: npm run generate
