@@ -52,8 +52,8 @@ jobs:
         if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
         run: |
           # クリーンアップコマンドを追加 (ネイティブバインディングエラー対策)
-          **rm -rf node_modules
-          rm -f package-lock.json**
+          rm -rf node_modules
+          rm -f package-lock.json
           npm ci
 
       - name: Generate
