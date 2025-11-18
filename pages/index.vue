@@ -6,7 +6,6 @@
 
         <div v-for="n in response.details.ext_4" :key="n.slag">
             <img :src="n.ext_4.url" width="400">
-            <div>{{ n.ext_3 }}</div>
             <div>{{ n.ext_5 }}</div>
             <div>{{ n.ext_6 }}</div>
         </div>
