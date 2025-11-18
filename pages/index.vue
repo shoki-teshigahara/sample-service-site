@@ -48,10 +48,10 @@
 const config = useRuntimeConfig();
 
 const { data: response } = await useFetch(() =>
-${config.public.apiBase}/rcms-api/3/service/3,
-{
-// credentials: 'include', // 必要に応じてコメントアウトを維持
-}
+    config.public.apiBase + '/rcms-api/3/service/3',
+    {
+    // credentials: 'include', // 必要に応じてコメントアウトを維持
+    }
 );
 </script>
 
