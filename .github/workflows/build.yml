@@ -50,9 +50,8 @@ jobs:
       - name: Install dependencies
         if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
         run: |
-          rm -rf node_modules
-          rm -f package-lock.json
-          npm install
+          rm -rf node_modules || true
+          npm ci
 
       - name: Generate
         run: npm run generate
@@ -111,9 +110,8 @@ jobs:
       - name: Install dependencies
         if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
         run: |
-          rm -rf node_modules
-          rm -f package-lock.json
-          npm install
+          rm -rf node_modules || true
+          npm ci
 
       - name: Generate
         run: npm run generate
