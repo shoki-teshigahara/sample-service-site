@@ -1,23 +1,24 @@
 <template>
-<!-- データがロードされ、かつ detailsが存在する場合のみメインコンテンツをレンダリング -->
-<main v-if="response?.details">
+<!-- 🚨 修正箇所: v-ifの条件を「responseオブジェクトが存在する」という最も緩い条件に緩和 -->
+<main v-if="response">
 
-    <!-- ヘッダー: v-once を追加し、データが確定するまで描画をブロックし、初期のクラッシュを防ぐ -->
+    <!-- ヘッダー: オプションチェイニングで安全性を確保 -->
     <header 
         class="header" 
         :style="{ 
-            backgroundImage: `url(${response.details.ext_1?.url || ''})` 
+            backgroundImage: `url(${response.details?.ext_1?.url || ''})` 
         }"
         v-once
     >
         <div class="header__text">
-            <h1>{{ response.details.ext_2 }}</h1>
-            <p>{{ response.details.ext_3 }}</p>
+            <h1>{{ response.details?.ext_2 }}</h1>
+            <p>{{ response.details?.ext_3 }}</p>
         </div>
     </header>
 
     <!-- WORKS セクション -->
-    <section v-if="response.details.ext_4?.length">
+    <!-- ext_4 が配列であり、かつ長さがあることを確認 -->
+    <section v-if="response.details?.ext_4?.length">
         <h2>WORKS</h2>
         <ul>
             <!-- リスト要素の画像アクセスにもオプションチェイニングを使用 -->
@@ -34,11 +35,11 @@
     <!-- ABOUT セクション -->
     <section class="about">
         <h2>ABOUT</h2>
-        <!-- v-html はデータが存在することを確認してから実行 -->
-        <p v-html="response.details.ext_7"></p>
+        <!-- ext_7 にもオプションチェイニング -->
+        <p v-html="response.details?.ext_7"></p>
     </section>
 </main>
-<!-- ロード中の代替表示 (データがない場合にクラッシュしないよう、メインの外で表示) -->
+<!-- ロード中の代替表示 -->
 <div v-else class="text-center p-8 text-xl text-gray-500">
     データを読み込み中、またはデータがありません...
 </div>
@@ -50,17 +51,14 @@
 const config = useRuntimeConfig();
 
 const { data: response } = await useFetch(() =>
-    ${config.public.apiBase} + '/rcms-api/3/service/3',
-    {
-        // credentials: 'include',
-    }
+${config.public.apiBase}/rcms-api/3/service/3,
+{
+// credentials: 'include', // 必要に応じてコメントアウトを維持
+}
 );
 </script>
 
 <style>
-/* ------------------------------------ /
-/ CSSは省略せず、このindex.vueファイル内にすべて含めてください。 /
-/ ------------------------------------ */
 
 body {
 margin: 0;
