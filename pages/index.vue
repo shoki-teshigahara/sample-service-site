@@ -47,12 +47,8 @@
 </template>
 
 <script setup>
-// Nuxtのランタイム設定を取得
 const config = useRuntimeConfig();
 
-// データの非同期取得
-// dataオブジェクト全体を response として受け取る
-// SPAモード (ssr: false) で安全に動作するよう await useFetch を使用
 const { data: response } = await useFetch(
 ${config.public.apiBase}/rcms-api/3/service/3,
 {
@@ -63,7 +59,7 @@ credentials: 'include',
 
 <style>
 /* ------------------------------------ /
-/ ユーザー提供のCSSスタイル (変更なし) /
+/ CSSは省略せず、このindex.vueファイル内にすべて含めてください。 /
 / ------------------------------------ */
 
 body {
@@ -115,7 +111,6 @@ width: 100%;
 height: 300px;
 background-position: center center;
 background-size: cover;
-/* ロード中のちらつきを防ぐため、安全なデフォルト背景を設定 */
 background-color: #f0f0f0;
 }
 
